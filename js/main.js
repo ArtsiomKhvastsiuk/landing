@@ -57,7 +57,7 @@ $(document).ready(function () {
 
 function toggleCircle(currentPage) {
     const scrollBarLinks = $(".scroll-bar > ul > li > a");
-    const id = $(currentPage).attr("id");
+    const id = $(currentPage).attr("data-anchor");
     for (let i = 0; i < scrollBarLinks.length; i++) {
         if ($(scrollBarLinks[i]).attr('href') === "#" + id) {
             const circle = $('a[href="#' + id + '"] > div[class="circle"]');

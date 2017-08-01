@@ -1,75 +1,28 @@
-/*
+
+
 $(document).ready(function () {
-    /!* arrow movement  *!/
-    setInterval(function () {
-        $(arrow).animate({top: '+=20', opacity: '1'}, 1200)
-            .animate({top: '-=20', opacity: '.1'}, 1100);
+    // I have needed do it because of fullpage library set incorrect height
+    const heigth = $(window).height();
+    $(".contacts-container").css("height", heigth);
+    $(".news-container img").css("height", heigth);
+
+
+
+    $('#myCarousel1').bind('slide.bs.carousel', function (e) {
+        $(".active img").css("opacity", 0);
+        $('.active img').fadeTo(700, 1);
     });
 
-    /!* scrolling with wheel*!/
-    let currentPage = $("#home");
-    let wheelCount = 0;
-    window.addEventListener('wheel', scrolling);
-    function scrolling(event) {
-        const timer = setTimeout(function() {
-        if (event.deltaY > 0) {
-            currentPage = $(currentPage).next();
-            toggleCircle(currentPage);
-            scrollTo(currentPage);
-            $(".scroll-bar").delay(200).fadeIn();
-        } else if (event.deltaY < 0) {
-            wheelCount = 0;
-            currentPage = $(currentPage).prev();
-            scrollTo(currentPage);
-            toggleCircle(currentPage);
-            if (currentPage.attr('id') === 'home')
-                $(".scroll-bar").delay(200).fadeOut();
-        }
-         }, 1);
-    }
-});
+    $("#navigation a[href=#home]").on('click', () => {
+        $(".scroll-bar").fadeOut();
+    });
 
 
-function toggleCircle(currentPage) {
-    const scrollBarLinks = $(".scroll-bar > ul > li > a");
-    const id = $(currentPage).attr("id");
-    for (let i = 0; i < scrollBarLinks.length; i++) {
-        if ($(scrollBarLinks[i]).attr('href') === "#" + id) {
-            const b = $('a[href="#' + id + '"] > div[class="circle"]');
-            b.addClass('scroll-bar-active');
-        } else {
-            const kids = $(scrollBarLinks[i]).children();
-            $(kids[1]).removeClass('scroll-bar-active');
-        }
-    }
-}
-
-function scrollTo(currentPage) {
-    $('html, body').animate({
-        scrollTop: $(currentPage).offset().top
-    }, 1000);
-}
-
-
-
-
-
-
-
-
-
-
-/!**
- * Created by inatm on 28.07.2017.
- *!/
-*/
-
-$(document).ready(function () {
     /* arrow movement  */
     setInterval(function () {
-        $(arrow).animate({top: '+=20', opacity: '1'}, 1200)
-            .animate({top: '-=20', opacity: '.1'}, 1100);
-    });
+        $(arrow).animate({bottom: '-=20', opacity: '1'}, 1200)
+            .animate({bottom: '+=20', opacity: '.1'}, 1100);
+    }, 0);
 
     window.addEventListener('wheel', scrolling);
     function scrolling(event) {
@@ -81,12 +34,13 @@ $(document).ready(function () {
         }
 
         if (event.deltaY < 0) {
-            if (currentPage[0].attr('data-anchor') === 'home')
+            // do refactor!
+            if (currentPage[0].attributes[1].value === 'home')
                 $(".scroll-bar").fadeOut();
         }
     }
 
-    $(".circle").click(function(event) {
+    $(".circle").click(function (event) {
         const circles = $(".circle");
         for (let i = 0; i < circles.length; i++) {
             if (event.target === circles[i])
@@ -111,3 +65,35 @@ function toggleCircle(currentPage) {
         }
     }
 }
+
+console.clear();
+
+const app = (() => {
+    let body;
+    let menu;
+    let menuItems;
+
+    const init = () => {
+        body = document.querySelector('body');
+        menu = document.querySelector('.menu-icon');
+        menuItems = document.querySelectorAll('.nav__list-item');
+
+        applyListeners();
+    }
+
+    const applyListeners = () => {
+        menu.addEventListener('click', () => toggleClass(body, 'nav-active'));
+
+    }
+
+    const toggleClass = (element, stringClass) => {
+        if (element.classList.contains(stringClass))
+            element.classList.remove(stringClass);
+        else
+            element.classList.add(stringClass);
+
+    }
+
+    init();
+})();
+

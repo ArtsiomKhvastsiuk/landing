@@ -1,29 +1,31 @@
-
-
 $(document).ready(function () {
-
-    // I have needed do it because of fullpage library set incorrect height
-    const heigth = $(window).height();
-    $(".contacts-container").css("height", heigth);
-    $(".news-container img").css("height", heigth);
-
-
-
-    $('#myCarousel1').bind('slide.bs.carousel', function (e) {
-        $(".active img").css("opacity", 0);
-        $('.active img').fadeTo(700, 1);
-    });
-
-    $("#navigation a[href='#home']").on('click', () => {
-        $(".scroll-bar").fadeOut();
-    });
-
 
     /* arrow movement  */
     setInterval(function () {
         $(arrow).animate({bottom: '-=20', opacity: '1'}, 1200)
             .animate({bottom: '+=20', opacity: '.1'}, 1100);
     }, 0);
+
+    // I have needed to do it because fullpage library set incorrect height
+    const heigth = $(window).height();
+    $(".contacts-container").css("height", heigth);
+    $(".news-container img").css("height", heigth);
+
+
+    /* slide show animation in carousel "partnersCarousel". */
+    $('#partnersCarousel').bind('slide.bs.carousel', function (e) {
+        $(".active img").css("opacity", 0);
+        $('.active img').fadeTo(700, 1);
+    });
+
+    /*
+    * pressing the home button in the side slider.
+    * by pressing the slider disappears
+    * */
+    $("#navigation a[href='#home']").on('click', () => {
+        $(".scroll-bar").fadeOut();
+    });
+
 
     window.addEventListener('wheel', scrolling);
     function scrolling(event) {
@@ -37,7 +39,7 @@ $(document).ready(function () {
         if (event.deltaY < 0) {
             // do refactor!
             if (currentPage[0].attributes[1].value === 'home')
-                $(".scroll-bar").fadeOut();
+                $(".scroll-bar").fadeIn();
         }
     }
 
@@ -50,9 +52,11 @@ $(document).ready(function () {
         }
     });
 
+    $(".options-button").on("click", () => {
+        $(".overlay").fadeOn();
+    })
 
 });
-
 
 
 function toggleCircle(currentPage) {

@@ -1,28 +1,31 @@
-
-
 $(document).ready(function () {
-    // I have needed do it because of fullpage library set incorrect height
-    const heigth = $(window).height();
-    $(".contacts-container").css("height", heigth);
-    $(".news-container img").css("height", heigth);
-
-
-
-    $('#myCarousel1').bind('slide.bs.carousel', function (e) {
-        $(".active img").css("opacity", 0);
-        $('.active img').fadeTo(700, 1);
-    });
-
-    $("#navigation a[href=#home]").on('click', () => {
-        $(".scroll-bar").fadeOut();
-    });
-
 
     /* arrow movement  */
     setInterval(function () {
         $(arrow).animate({bottom: '-=20', opacity: '1'}, 1200)
             .animate({bottom: '+=20', opacity: '.1'}, 1100);
     }, 0);
+
+    // I have needed to do it because fullpage library set incorrect height
+    const heigth = $(window).height();
+    $(".contacts-container").css("height", heigth);
+    $(".news-container img").css("height", heigth);
+
+
+    /* slide show animation in carousel "partnersCarousel". */
+    $('#partnersCarousel').bind('slide.bs.carousel', function (e) {
+        $(".active img").css("opacity", 0);
+        $('.active img').fadeTo(700, 1);
+    });
+
+    /*
+     * pressing the home button in the side slider.
+     * by pressing the slider disappears
+     * */
+    $("#navigation a[href='#home']").on('click', () => {
+        $(".scroll-bar").fadeOut();
+    });
+
 
     window.addEventListener('wheel', scrolling);
     function scrolling(event) {
@@ -36,7 +39,7 @@ $(document).ready(function () {
         if (event.deltaY < 0) {
             // do refactor!
             if (currentPage[0].attributes[1].value === 'home')
-                $(".scroll-bar").fadeOut();
+                $(".scroll-bar").fadeIn();
         }
     }
 
@@ -49,8 +52,17 @@ $(document).ready(function () {
         }
     });
 
+    $(".options-button").on("click", () => {
+        $(".overlay").fadeIn();
+        $.fn.fullpage.setMouseWheelScrolling(false);
+    });
 
+    $(".overlay").on("click", () => {
+        $(".overlay").fadeOut();
+        $.fn.fullpage.setMouseWheelScrolling(true);
+    });
 });
+
 
 function toggleCircle(currentPage) {
     const scrollBarLinks = $(".scroll-bar > ul > li > a");
@@ -65,35 +77,4 @@ function toggleCircle(currentPage) {
         }
     }
 }
-
-console.clear();
-
-const app = (() => {
-    let body;
-    let menu;
-    let menuItems;
-
-    const init = () => {
-        body = document.querySelector('body');
-        menu = document.querySelector('.menu-icon');
-        menuItems = document.querySelectorAll('.nav__list-item');
-
-        applyListeners();
-    }
-
-    const applyListeners = () => {
-        menu.addEventListener('click', () => toggleClass(body, 'nav-active'));
-
-    }
-
-    const toggleClass = (element, stringClass) => {
-        if (element.classList.contains(stringClass))
-            element.classList.remove(stringClass);
-        else
-            element.classList.add(stringClass);
-
-    }
-
-    init();
-})();
 

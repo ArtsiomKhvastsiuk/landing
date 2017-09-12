@@ -55,8 +55,6 @@ html {
     line-height: 1.8;
 }
 
-
-
 .nav {
     display: none;
 }
@@ -148,6 +146,7 @@ body {
     position: absolute;
     bottom: 6%;
     left: 50%;
+    cursor: pointer;
 }
 
 /*about*/

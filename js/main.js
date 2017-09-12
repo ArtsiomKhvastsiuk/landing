@@ -6,6 +6,12 @@ $(document).ready(function () {
             .animate({bottom: '+=20', opacity: '.1'}, 1100);
     }, 0);
 
+    $(arrow).on('click', () => {
+        $.fn.fullpage.moveSectionDown();
+        $(".scroll-bar").delay(200).fadeIn();
+        toggleCircle($(".active"));
+    });
+
     // I have needed to do it because fullpage library set incorrect height
     const heigth = $(window).height();
     $(".contacts-container").css("height", heigth);
@@ -19,9 +25,9 @@ $(document).ready(function () {
     });
 
     /*
-    * pressing the home button in the side slider.
-    * by pressing the slider disappears
-    * */
+     * pressing the home button in the side slider.
+     * by pressing the slider disappears
+     * */
     $("#navigation a[href='#home']").on('click', () => {
         $(".scroll-bar").fadeOut();
     });
@@ -39,7 +45,7 @@ $(document).ready(function () {
         if (event.deltaY < 0) {
             // do refactor!
             if (currentPage[0].attributes[1].value === 'home')
-                $(".scroll-bar").fadeIn();
+                $(".scroll-bar").fadeOut();
         }
     }
 
@@ -53,9 +59,14 @@ $(document).ready(function () {
     });
 
     $(".options-button").on("click", () => {
-        $(".overlay").fadeOn();
-    })
+        $(".overlay").fadeIn();
+        $.fn.fullpage.setMouseWheelScrolling(false);
+    });
 
+    $(".overlay").on("click", () => {
+        $(".overlay").fadeOut();
+        $.fn.fullpage.setMouseWheelScrolling(true);
+    });
 });
 
 

@@ -6,6 +6,10 @@ $(document).ready(function () {
             .animate({bottom: '+=20', opacity: '.1'}, 1100);
     }, 0);
 
+    $(arrow).on('click', () => {
+        $.fn.fullpage.moveSectionDown();
+    });
+
     // I have needed to do it because fullpage library set incorrect height
     const heigth = $(window).height();
     $(".contacts-container").css("height", heigth);

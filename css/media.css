@@ -14,6 +14,11 @@
 
 @media screen and (max-width: 960px) {
 
+    .burger {
+        display: block;
+    }
+
+
     .scroll-bar {
         display: none !important;
     }

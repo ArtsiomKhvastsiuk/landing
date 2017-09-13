@@ -15,6 +15,7 @@
 
 <div id="fullpage">
     <section class="container" id="container">
+
         <section class="section" data-anchor="home">
             <section class="block">
                 <section class="home-container">
@@ -445,6 +446,77 @@
         </li>
     </ul>
 </section>
+<section class="burger" onclick="toggleIcon(this)">
+    <section class="bar1"></section>
+    <section class="bar2"></section>
+    <section class="bar3"></section>
+</section>
+
+<section>
+
+        <section class="burger-content">
+            <ul id="navigation1">
+                <li data-menuanchor="home">
+                    <a href="#home">
+                        <div class="">
+                            Главная
+                        </div>
+                    </a>
+                </li>
+                <li data-menuanchor="about">
+                    <a href="#about">
+                        <div class="">
+                            О проекте
+                        </div>
+                    </a>
+                </li>
+                <li data-menuanchor="benefits">
+                    <a href="#benefits">
+                        <div class="">
+                            Преимущества
+                        </div>
+                    </a>
+                </li>
+                <li data-menuanchor="howitworks">
+                    <a href="#howitworks">
+                        <div class="">
+                            Как это работает
+                        </div>
+                    </a>
+                </li>
+                <li data-menuanchor="options">
+                    <a href="#options">
+                        <div class="">
+                            Варианты карт
+                        </div>
+                    </a>
+                </li>
+                <li data-menuanchor="partners">
+                    <a href="#partners">
+                        <div class="">
+                            Партнёры
+                        </div>
+                    </a>
+                </li>
+                <li data-menuanchor="contacts">
+                    <a href="#contacts">
+                        <div class="">
+                            Контакты
+                        </div>
+                    </a>
+                </li>
+                <li data-menuanchor="news">
+                    <a href="#news">
+                        <div class="">
+                            Новости
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+</section>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="libs/bootstrap/js/bootstrap.min.js"></script>
@@ -457,6 +529,7 @@
     $(document).ready(function () {
         $('#fullpage').fullpage({
             menu: '#navigation',
+            menu: "navigation1",
             scrollOverflow: true,
             anchors: ['home', 'about', 'benefits', 'howitworks', 'options', 'partners', 'contacts', 'news'],
             scrollingSpeed: 1000,

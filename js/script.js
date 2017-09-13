@@ -1,5 +1,12 @@
 $(document).ready(function () {
 
+    const burgerLinks = $(".burger-content > ul > li > a");
+    $(burgerLinks).each(function() {
+       this.on('click', function() {
+           $(".burger-content ").fadeOut();
+       });
+    });
+
     /* arrow movement  */
     setInterval(function () {
         $(arrow).animate({bottom: '-=20', opacity: '1'}, 1200)
@@ -8,6 +15,8 @@ $(document).ready(function () {
 
     $(arrow).on('click', () => {
         $.fn.fullpage.moveSectionDown();
+        $(".scroll-bar").fadeIn();
+        toggleCircle($(".active"));
     });
 
     // I have needed to do it because fullpage library set incorrect height
@@ -34,7 +43,12 @@ $(document).ready(function () {
     window.addEventListener('wheel', scrolling);
     function scrolling(event) {
         const currentPage = $(".active");
-        toggleCircle(currentPage[0]);
+        if ($(currentPage[0]).attr("data-anchor")) {
+            toggleCircle(currentPage[0]);
+        } else {
+            toggleCircle(currentPage[1]);
+        }
+
         if (event.deltaY > 0) {
             $(".scroll-bar").delay(200).fadeIn();
 
@@ -43,7 +57,7 @@ $(document).ready(function () {
         if (event.deltaY < 0) {
             // do refactor!
             if (currentPage[0].attributes[1].value === 'home')
-                $(".scroll-bar").fadeIn();
+                $(".scroll-bar").fadeOut();
         }
     }
 

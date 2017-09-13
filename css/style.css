@@ -801,6 +801,7 @@ ul a:hover .popover {
     top: 5%;
     right: 5%;
     z-index: 999;
+    cursor: pointer;
 }
 
 .bar1, .bar2, .bar3 {
@@ -848,23 +849,22 @@ ul a:hover .popover {
 }
 
 .burger-content ul li {
-    padding-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 .burger-content a {
+    text-transform: uppercase;
     text-decoration: none;
     color: #ffffff;
-    font-family: 'Roboto-Light';
-    font-size: 24px;
+    font-family: 'Roboto-Regular';
+    font-size: 26px;
     font-weight: 300;
     line-height: 1.5;
 
 }
 
 .burger-content a:hover {
-
     color: #585858;
-
 }
 
 

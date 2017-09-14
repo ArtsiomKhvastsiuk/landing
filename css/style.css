@@ -530,15 +530,15 @@ body {
     display: none;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.54);
+    background-color: rgba(0,0,0,0.65);
     position: fixed;
     z-index: 1;
 }
 
 .form-container {
     display: none;
-    width: 628px;
-    height: 485px;
+    max-width: 628px;
+    max-height: 485px;
     position: absolute;
     top: 0;
     right: 0;
@@ -579,8 +579,12 @@ input {
     -webkit-border-radius: 5px;
     padding: 0 20px;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
+input[type=submit] {
+    cursor: pointer;
+}
 .form-button {
     color: #fff;
     background-color: #000;

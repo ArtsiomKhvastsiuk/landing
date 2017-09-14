@@ -73,12 +73,15 @@ $(document).ready(function () {
     });
 
     $(".options-button").on("click", () => {
+        console.log(this);
         $(".overlay").fadeIn();
+        $(".form-container").fadeIn();
         $.fn.fullpage.setMouseWheelScrolling(false);
     });
 
     $(".overlay").on("click", () => {
         $(".overlay").fadeOut();
+        $(".form-container").fadeOut();
         $.fn.fullpage.setMouseWheelScrolling(true);
     });
 });

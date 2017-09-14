@@ -261,6 +261,10 @@
 
     }
 
+    .form-content p:first-child {
+        font-size: 36px;
+    }
+
     .contacts {
         padding: 20px 0 0 20px;
     }

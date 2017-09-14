@@ -1,11 +1,13 @@
 $(document).ready(function () {
 
     const burgerLinks = $(".burger-content > ul > li > a");
-    $(burgerLinks).each(function() {
-       this.on('click', function() {
-           $(".burger-content ").fadeOut();
-       });
-    });
+    for (let i = 0; i < burgerLinks.length; i++) {
+        $(burgerLinks[i]).on('click', function () {
+            $(".burger-content ").fadeOut();
+            $.fn.fullpage.setMouseWheelScrolling(true);
+            $(".burger").toggleClass("change");
+        });
+    }
 
     /* arrow movement  */
     setInterval(function () {
@@ -70,14 +72,45 @@ $(document).ready(function () {
         }
     });
 
-    $(".options-button").on("click", () => {
+    let card = "";
+    $(".options-button").on("click", (event) => {
+        card = event.currentTarget.parentElement.id;
         $(".overlay").fadeIn();
+        $(".form-container").fadeIn();
         $.fn.fullpage.setMouseWheelScrolling(false);
     });
 
     $(".overlay").on("click", () => {
         $(".overlay").fadeOut();
+        $(".form-container").fadeOut();
         $.fn.fullpage.setMouseWheelScrolling(true);
+    });
+
+
+    // sending data of form to server
+    $(".form-button").on('click', () => {
+        let globalResult = false;
+
+        let email = $("#email").val();
+        let name = $("#name").val();
+        let phone = $("#phone").val();
+
+        // validation
+        if (email.length === 0 || name.length === 0 || phone.length === 0) {
+            alert('Заполните все поля');
+        } else {
+            if (checkInputEmail(email) && checkInputName(name) && checkInputPhone(phone)) {
+                $.post("http://localhost:3000", {
+                    card: card,
+                    email: email,
+                    name: name,
+                    phone: phone
+                })
+            }
+
+        }
+
+
     });
 });
 
@@ -96,3 +129,67 @@ function toggleCircle(currentPage) {
     }
 }
 
+function toggleIcon(burger) {
+    burger.classList.toggle("change");
+    if ($(".burger-content").css("display") === "none") {
+        $(".burger-content ").css("display", "flex");
+        $.fn.fullpage.setMouseWheelScrolling(false);
+    } else {
+        $(".burger-content ").fadeOut();
+        $.fn.fullpage.setMouseWheelScrolling(true);
+    }
+}
+
+function checkEmail(email) {
+    if (!email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        return 'Проверьте адрес электронной почты';
+    }
+    return true;
+}
+
+function checkInputEmail(email) {
+    const result = checkEmail(email);
+    if (result === true) {
+        return true;
+    } else {
+        alert(result);
+    }
+}
+
+function checkName(name) {
+    if (!name.match(/^[\wА-Яа-яЁёA-Za-z\s]*$/)) {
+        return 'Вы можете использовать кирилицу, латиницу, а также пробел и дефис'
+    }
+
+    if (name.length > 32) {
+        return 'Слишком длинное имя';
+    }
+
+    return true;
+}
+
+function checkInputName(name) {
+    const result = checkName(name);
+    if (result === true) {
+        return true;
+    } else {
+        alert(result);
+    }
+}
+
+function checkPhone(phone) {
+    if (!phone.match(/^(\+375|80)\s?(29|25|44|33)\s?(\d{3})\s?(\d{2})\s?(\d{2})$/)) {
+        return 'Неправильный номер или формат записи. ' +
+            '\nВозможные форматы:\n +375xxxxxxxxx\n+375 xx xxx xx xx';
+    }
+    return true;
+}
+
+function checkInputPhone(phone) {
+    const result = checkPhone(phone);
+    if (result === true) {
+        return true;
+    } else {
+        alert(result);
+    }
+}

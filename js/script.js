@@ -26,7 +26,6 @@ $(document).ready(function () {
     $(".contacts-container").css("height", heigth);
     $(".news-container img").css("height", heigth);
 
-
     /* slide show animation in carousel "partnersCarousel". */
     $('#partnersCarousel').bind('slide.bs.carousel', function (e) {
         $(".active img").css("opacity", 0);
@@ -106,6 +105,12 @@ $(document).ready(function () {
                     name: name,
                     phone: phone
                 })
+                    .done(() => {
+                        $('#form')[0].reset();
+                    })
+                    .fail((err) => {
+                        alert("Ошибка соединения с сервером.")
+                    })
             }
 
         }
@@ -113,7 +118,6 @@ $(document).ready(function () {
 
     });
 });
-
 
 function toggleCircle(currentPage) {
     const scrollBarLinks = $(".scroll-bar > ul > li > a");
@@ -157,7 +161,7 @@ function checkInputEmail(email) {
 }
 
 function checkName(name) {
-    if (!name.match(/^[\wА-Яа-яЁёA-Za-z\s]*$/)) {
+    if (!name.match(/^[- А-Яа-яЁёA-Za-z\s]*$/)) {
         return 'Вы можете использовать кирилицу, латиницу, а также пробел и дефис'
     }
 

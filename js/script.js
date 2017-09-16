@@ -88,7 +88,6 @@ $(document).ready(function () {
 
     // sending data of form to server
     $(".form-button").on('click', () => {
-        let globalResult = false;
 
         let email = $("#email").val();
         let name = $("#name").val();
